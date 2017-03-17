@@ -3,8 +3,11 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 )
+
+var out io.Writer = os.Stdout // テスト中は変更される
 
 func main() {
 	s, sep := "", ""
@@ -12,5 +15,5 @@ func main() {
 		s += sep + arg
 		sep = " "
 	}
-	fmt.Println(s)
+	fmt.Fprintln(out, s)
 }
