@@ -10,10 +10,7 @@ import (
 var out io.Writer = os.Stdout // テスト中は変更される
 
 func main() {
-	s, sep := "", ""
-	for _, arg := range os.Args {
-		s += sep + arg
-		sep = "\n"
+	for i := 1; i < len(os.Args); i++ {
+		fmt.Fprintln(out, fmt.Sprintf("%d %s", i, os.Args[i]))
 	}
-	fmt.Fprintln(out, s)
 }
