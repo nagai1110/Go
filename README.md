@@ -1,2 +1,4 @@
 # Go
 Go研修用のリポジトリ
+
+[![Build Status](https://travis-ci.org/nagai1110/Go.svg?branch=master)](https://travis-ci.org/nagai1110/Go)
