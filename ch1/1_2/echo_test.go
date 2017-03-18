@@ -12,9 +12,9 @@ func TestEcho(t *testing.T) {
 		args []string
 		want string
 	}{
-		{[]string{}, "\n"},
-		{[]string{"one", "two", "three"}, "one\ntwo\nthree\n"},
-		{[]string{"a", "b", "c"}, "a\nb\nc\n"},
+		{[]string{"command"}, ""},
+		{[]string{"command", "one", "two", "three"}, "1 one\n2 two\n3 three\n"},
+		{[]string{"command", "a", "b", "c"}, "1 a\n2 b\n3 c\n"},
 	}
 
 	for _, test := range tests {
