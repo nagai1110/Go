@@ -1,4 +1,4 @@
 language: go
 
 script:
- - go test ./... -v -coverprofile=c.out
+ - go test ./... -v
