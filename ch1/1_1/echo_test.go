@@ -3,7 +3,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"os"
 	"testing"
 )
@@ -19,15 +18,13 @@ func TestEcho(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		descr := fmt.Sprintf("main()")
-
 		os.Args = test.args
 		out = new(bytes.Buffer)
 		main()
 
 		got := out.(*bytes.Buffer).String()
 		if got != test.want {
-			t.Errorf("%s = %q, want %q", descr, got, test.want)
+			t.Errorf("main() = %q, want %q", got, test.want)
 		}
 	}
 }
