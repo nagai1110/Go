@@ -9,16 +9,16 @@ import (
 )
 
 func TestLissajours(t *testing.T) {
-	var bgPalette = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}}
-	var wbPalette = []color.Color{color.White, color.Black}
+	var palette1 = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}, color.RGBA{0xff, 0x00, 0x00, 0xff}, color.RGBA{0x00, 0x00, 0xff, 0xff}}
+	var palette2 = []color.Color{color.White, color.White, color.RGBA{0x00, 0xff, 0x00, 0xff}, color.RGBA{0xff, 0x00, 0x00, 0xff}}
 
 	// カラーだけ検査
 	var tests = []struct {
 		args []color.Color
 		want []color.Color
 	}{
-		{bgPalette, bgPalette},
-		{wbPalette, wbPalette},
+		{palette1, palette1},
+		{palette2, palette2},
 	}
 
 	for _, test := range tests {

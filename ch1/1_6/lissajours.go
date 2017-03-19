@@ -14,11 +14,13 @@ import (
 
 var out io.Writer = os.Stdout // for Test
 
-var palette = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}}
+var palette = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}, color.RGBA{0xff, 0x00, 0x00, 0xff}, color.RGBA{0x00, 0x00, 0xff, 0xff}}
 
 const (
-	bgColorIndex   = 0
-	lineColorIndex = 1
+	bgColorIndex    = 0
+	line1ColorIndex = 1
+	line2ColorIndex = 2
+	line3ColorIndex = 3
 )
 
 func main() {
@@ -41,10 +43,20 @@ func createLissajours(palette []color.Color) {
 		rect := image.Rect(0, 0, 2*size+1, 2*size+1)
 		img := image.NewPaletted(rect, palette)
 		for t := 0.0; t < cycles*2*math.Pi; t += res {
-			x := math.Sin(t)
-			y := math.Sin(t*freq + phase)
-			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5),
-				lineColorIndex)
+			sinX := math.Sin(t)
+			sinY := math.Sin(t*freq + phase)
+			img.SetColorIndex(size+int(sinX*size+0.5), size+int(sinY*size+0.5),
+				line1ColorIndex)
+
+			cosX := math.Cos(t)
+			cosY := math.Cos(t*freq + phase)
+			img.SetColorIndex(size+int(cosX*size+0.5), size+int(cosY*size+0.5),
+				line2ColorIndex)
+
+			tanX := math.Tan(t)
+			tanY := math.Tan(t*freq + phase)
+			img.SetColorIndex(size+int(tanX*size+0.5), size+int(tanY*size+0.5),
+				line3ColorIndex)
 		}
 		phase += 0.1
 		anim.Delay = append(anim.Delay, delay)
