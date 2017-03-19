@@ -46,7 +46,7 @@ func print(counts map[string][]string) {
 	for _, key := range sortedKeys {
 		filenames := counts[key]
 		if len(filenames) > 1 {
-			fmt.Fprintln(out, fmt.Sprintf("%s\t%s", key, filenames))
+			fmt.Fprintf(out, "%s\t%s\n", key, filenames)
 		}
 	}
 }
