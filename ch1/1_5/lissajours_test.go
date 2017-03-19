@@ -14,8 +14,8 @@ func TestLissajours(t *testing.T) {
 
 	// カラーだけ検査
 	var tests = []struct {
-		args []color.Color
-		want []color.Color
+		palette []color.Color
+		want    []color.Color
 	}{
 		{bgPalette, bgPalette},
 		{wbPalette, wbPalette},
@@ -23,7 +23,7 @@ func TestLissajours(t *testing.T) {
 
 	for _, test := range tests {
 		out = new(bytes.Buffer)
-		createLissajours(test.args)
+		createLissajours(test.palette)
 
 		reader := bytes.NewReader(out.(*bytes.Buffer).Bytes())
 		gif, err := gif.DecodeAll(reader)
