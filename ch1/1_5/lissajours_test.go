@@ -9,7 +9,7 @@ import (
 )
 
 func TestLissajours(t *testing.T) {
-	var bgPalette = []color.Color{color.Black, color.RGBA{0x00, 0x80, 0x00, 0xff}}
+	var bgPalette = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}}
 	var wbPalette = []color.Color{color.White, color.Black}
 
 	// カラーだけ検査
