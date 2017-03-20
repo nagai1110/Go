@@ -13,6 +13,7 @@ func TestFetch(t *testing.T) {
 		want string
 	}{
 		{"http://gopl.io", "status code: 200"},
+		{"http://gopl.io/hoge", "status code: 404"},
 	}
 
 	for _, test := range tests {
