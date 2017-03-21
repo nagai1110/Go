@@ -13,12 +13,14 @@ import (
 )
 
 var sleeper = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-	// 100秒間スリープさせる
-	time.Sleep(100 * time.Second)
+	// 100秒間スリープ
+	// time.Sleep(100 * time.Second)
+	// テスト完了が遅くなるので10秒にしておく
+	time.Sleep(10 * time.Second)
 })
 
 func TestFetchAll(t *testing.T) {
-	// 応答しないWebサイトが分からなかったのでテストサーバーでスリープさせてみる
+	// テストサーバー
 	testServer := httptest.NewServer(sleeper)
 	defer testServer.Close()
 
@@ -33,7 +35,7 @@ func TestFetchAll(t *testing.T) {
 			"http://facebook.com",
 			"http://baidu.com",
 			"http://wikipedia.org",
-			testServer.URL, // 途中でテストサーバーにアクセスさせてみる
+			testServer.URL, // テストサーバー
 			"http://yahoo.com",
 			"http://google.co.in",
 			"http://qq.com",
@@ -57,10 +59,10 @@ func TestFetchAll(t *testing.T) {
 
 	for _, test := range tests {
 		os.Args = test.args
-		statusCodeWriter = new(bytes.Buffer)
+		out = new(bytes.Buffer)
 		main()
 
-		got := statusCodeWriter.(*bytes.Buffer).String()
+		got := out.(*bytes.Buffer).String()
 		for _, result := range test.want {
 			if !strings.Contains(got, result) {
 				t.Errorf("main() = %q, want = %q", got, test.want)

@@ -12,13 +12,13 @@ import (
 	"time"
 )
 
-var out io.Writer = os.Stdout // for Test
+var out io.Writer = os.Stdout
 
 var palette = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}}
 
 const (
-	bgColorIndex   = 0
-	lineColorIndex = 1
+	backGroundColorIndex = 0
+	lineColorIndex       = 1
 )
 
 func main() {

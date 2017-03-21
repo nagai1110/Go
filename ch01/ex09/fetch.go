@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-var out io.Writer = os.Stdout // for Test
+var out io.Writer = os.Stdout
 
 func main() {
 	for _, url := range os.Args[1:] {
