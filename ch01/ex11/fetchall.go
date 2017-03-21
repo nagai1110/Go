@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-var statusCodeWriter io.Writer = os.Stdout
+var out io.Writer = os.Stdout
 
 func main() {
 	start := time.Now()
@@ -19,9 +19,9 @@ func main() {
 		go fetch(url, ch) // start a goroutine
 	}
 	for range os.Args[1:] {
-		fmt.Println(<-ch) // receive from channel ch
+		fmt.Fprintln(out, <-ch) // receive from channel ch
 	}
-	fmt.Printf("%.2fs elapsed\n", time.Since(start).Seconds())
+	fmt.Fprintf(out, "%.2fs elapsed\n", time.Since(start).Seconds())
 }
 
 func fetch(url string, ch chan<- string) {
@@ -32,13 +32,14 @@ func fetch(url string, ch chan<- string) {
 		return
 	}
 
-	fmt.Fprintf(statusCodeWriter, "%s: %d", url, resp.StatusCode)
 	nbytes, err := io.Copy(ioutil.Discard, resp.Body)
 	resp.Body.Close() // don't leak resources
 	if err != nil {
 		ch <- fmt.Sprintf("while reading %s: %v", url, err)
 		return
 	}
+
+	status := fmt.Sprintf("%s: %d", url, resp.StatusCode)
 	secs := time.Since(start).Seconds()
-	ch <- fmt.Sprintf("%.2fs  %7d  %s", secs, nbytes, url)
+	ch <- fmt.Sprintf("%s\n%.2fs  %7d  %s", status, secs, nbytes, url)
 }
