@@ -10,8 +10,7 @@ import (
 
 func main() {
 	for _, url := range os.Args[1:] {
-		isSucceeded := fetch(url)
-		if !isSucceeded {
+		if isSucceeded := fetch(url); !isSucceeded {
 			os.Exit(1)
 		}
 	}
