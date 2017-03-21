@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-var fileCount int = 0
+var fileIndex int = 0
 
 func main() {
 	reportFetch(os.Args[1:])
@@ -36,8 +36,8 @@ func fetch(url string, ch chan<- string) {
 		return
 	}
 
-	fileCount++
-	filename := fmt.Sprintf("file_%d.txt", fileCount)
+	fileIndex++
+	filename := fmt.Sprintf("file_%d.txt", fileIndex)
 	out, err := os.Create(filename)
 	if err != nil {
 		ch <- fmt.Sprint(err)
