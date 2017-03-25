@@ -18,32 +18,32 @@ func TestTempConv(t *testing.T) {
 	for _, test := range tests {
 		f := CToF(test.c)
 		if f != test.f {
-			t.Errorf("CToF(%v) = %v, want %v", test.c, f, test.f)
+			t.Errorf("CToF(%f) = %v, want %v", test.c, f, test.f)
 		}
 
 		k := CToK(test.c)
 		if k != test.k {
-			t.Errorf("CToK(%v) = %v, want %v", test.c, k, test.k)
+			t.Errorf("CToK(%f) = %v, want %v", test.c, k, test.k)
 		}
 
 		c := FToC(test.f)
 		if c != test.c {
-			t.Errorf("FToC(%v) = %v, want %v", test.f, c, test.c)
+			t.Errorf("FToC(%f) = %v, want %v", test.f, c, test.c)
 		}
 
 		k = FToK(test.f)
 		if k != test.k {
-			t.Errorf("FToK(%v) = %v, want %v", test.f, k, test.k)
+			t.Errorf("FToK(%f) = %v, want %v", test.f, k, test.k)
 		}
 
 		c = KToC(test.k)
 		if c != test.c {
-			t.Errorf("KToC(%v) = %v, want %v", test.k, c, test.c)
+			t.Errorf("KToC(%f) = %v, want %v", test.k, c, test.c)
 		}
 
 		f = KToF(test.k)
 		if f != test.f {
-			t.Errorf("KToF(%v) = %v, want %v", test.k, f, test.f)
+			t.Errorf("KToF(%f) = %v, want %v", test.k, f, test.f)
 		}
 	}
 }
