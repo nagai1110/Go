@@ -22,6 +22,7 @@ func PopCount(x uint64) int {
 		pc[byte(x>>(7*8))])
 }
 
+// 合計のポピュレーションカウントをループで計算する方式
 func PopCountByLoop(x uint64) int {
 	sumPC := 0
 	for i := uint64(0); i < 8; i++ {
