@@ -22,17 +22,11 @@ func PopCount(x uint64) int {
 		pc[byte(x>>(7*8))])
 }
 
-// 引数をビットシフトしながら最下位ビットの検査を64回繰り返す方式
-func PopCountByBitShift(x uint64) int {
-	var lsb uint64 = 0x00000001
-
+// 1が設定されている最下位ビットをクリアする方式
+func PopCountByLSBClearance(x uint64) int {
 	pc := 0
-	for i := 0; i < 64; i++ {
-		if x&lsb == 1 {
-			pc++
-		}
-
-		x = x >> 1
+	for ; x != 0; x = x & (x - 1) {
+		pc++
 	}
 
 	return pc
