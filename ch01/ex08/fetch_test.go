@@ -23,7 +23,7 @@ func TestFetch(t *testing.T) {
 	}
 }
 
-func TestValidateUrl(t *testing.T) {
+func TestCreateUrl(t *testing.T) {
 	var tests = []struct {
 		url  string
 		want string
@@ -33,9 +33,9 @@ func TestValidateUrl(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		url := validateUrl(test.url)
+		url := createUrl(test.url)
 		if url != test.want {
-			t.Errorf("validateUrl(%s) = %s, want %s", test.url, url, test.want)
+			t.Errorf("createUrl(%s) = %s, want %s", test.url, url, test.want)
 		}
 	}
 }

@@ -18,7 +18,7 @@ func main() {
 }
 
 func fetch(url string) bool {
-	resp, err := http.Get(validateUrl(url))
+	resp, err := http.Get(createUrl(url))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
 		return false
@@ -35,7 +35,7 @@ func fetch(url string) bool {
 	return true
 }
 
-func validateUrl(url string) string {
+func createUrl(url string) string {
 	if strings.HasPrefix(url, "http://") {
 		return url
 	}
