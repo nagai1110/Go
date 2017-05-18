@@ -22,7 +22,7 @@ func comma(s string) string {
 
 	for i := offset; i < n; i++ {
 		if i != 0 && i%3 == offset {
-			buf.WriteString(",")
+			buf.WriteRune(',')
 		}
 
 		buf.WriteByte(s[i])
