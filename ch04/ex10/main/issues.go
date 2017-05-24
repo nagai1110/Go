@@ -26,17 +26,20 @@ func main() {
 	lastMonth := now.AddDate(0, -1, 0)
 	lastYear := now.AddDate(-1, 0, 0)
 
-	filter(result, lastMonth, now)
-	filter(result, lastYear, lastMonth)
-	filter(result, time.Date(0, 0, 0, 0, 0, 0, 0, time.UTC), lastYear)
+	fmt.Println("Since last maonth")
+	filter(result, &lastMonth, &now)
+	fmt.Println("Since last year")
+	filter(result, &lastYear, &lastMonth)
+	fmt.Println("Others")
+	filter(result, nil, &lastYear)
 }
 
-func filter(result *github.IssuesSearchResult, startDate time.Time, endDate time.Time) {
+func filter(result *github.IssuesSearchResult, startDate *time.Time, endDate *time.Time) {
 	for _, issue := range result.Items {
 		date := issue.CreatedAt
 
-		if (startDate.Equal(date) || startDate.After(date)) &&
-			(endDate.Equal(date) || endDate.Before(date)) {
+		if (startDate == nil || (*startDate).Equal(date) || (*startDate).After(date)) &&
+			(endDate == nil || (*endDate).Equal(date) || (*endDate).Before(date)) {
 			fmt.Printf("#%-5d %v %9.9s %.55s\n", issue.Number, issue.CreatedAt, issue.User.Login, issue.Title)
 		}
 	}
