@@ -14,6 +14,7 @@ func main() {
 	fmt.Printf("%v\n", string(removeDuplicateSpace([]byte(s))))
 }
 
+// TODO:日本語などのマルチバイト文字できてない
 func removeDuplicateSpace(slice []byte) []byte {
 	out := make([]byte, len(slice))
 
