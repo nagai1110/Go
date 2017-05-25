@@ -16,7 +16,7 @@ func TestDuplicate(t *testing.T) {
 
 	for _, test := range tests {
 		out := removeDuplicateSpace(test.s)
-		for i := 0; i < len(out); i++ {
+		for i := 0; i < len(test.want); i++ {
 			if out[i] != test.want[i] {
 				t.Errorf("removeDuplicateSpace(%v) = %v, want %v", string(test.s), string(out), string(test.want))
 				break
