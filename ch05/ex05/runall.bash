@@ -1,0 +1,1 @@
+go run ./countWordsAndImages.go http://www.ricoh.co.jp/
