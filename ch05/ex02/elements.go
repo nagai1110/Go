@@ -11,7 +11,7 @@ import (
 func main() {
 	doc, err := html.Parse(os.Stdin)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "countElements: %v\n", err)
+		fmt.Fprintf(os.Stderr, "elements: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -33,6 +33,8 @@ func countElements(elements map[string]int, n *html.Node) map[string]int {
 		elements[n.Data]++
 	}
 
-	elements = countElements(elements, n.FirstChild)
-	return countElements(elements, n.NextSibling)
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		elements = countElements(elements, c)
+	}
+	return elements
 }

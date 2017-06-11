@@ -15,12 +15,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	for _, text := range textnode(nil, doc) {
+	for _, text := range findTextnode(nil, doc) {
 		fmt.Println(text)
 	}
 }
 
-func textnode(texts []string, n *html.Node) []string {
+func findTextnode(texts []string, n *html.Node) []string {
 	if n == nil {
 		return texts
 	}
@@ -30,7 +30,8 @@ func textnode(texts []string, n *html.Node) []string {
 			texts = append(texts, n.Data)
 		}
 	}
-
-	texts = textnode(texts, n.FirstChild)
-	return textnode(texts, n.NextSibling)
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		texts = findTextnode(texts, c)
+	}
+	return texts
 }
