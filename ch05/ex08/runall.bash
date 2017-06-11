@@ -1,0 +1,1 @@
+go run ./elementByID.go http://www.ricoh.co.jp/ fb-root
