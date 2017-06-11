@@ -25,10 +25,6 @@ func countElements(elements map[string]int, n *html.Node) map[string]int {
 		elements = make(map[string]int)
 	}
 
-	if n == nil {
-		return elements
-	}
-
 	if n.Type == html.ElementNode {
 		elements[n.Data]++
 	}

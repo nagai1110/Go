@@ -21,10 +21,6 @@ func main() {
 }
 
 func findTextnode(texts []string, n *html.Node) []string {
-	if n == nil {
-		return texts
-	}
-
 	if n.Type == html.TextNode {
 		if n.Data != "script" && n.Data != "style" {
 			texts = append(texts, n.Data)
