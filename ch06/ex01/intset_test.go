@@ -7,8 +7,8 @@ import (
 
 func TestLen(t *testing.T) {
 	var tests = []struct {
-		adds []int
-		want int
+		words []int
+		want  int
 	}{
 		{[]int{}, 0},
 		{[]int{1}, 1},
@@ -18,20 +18,16 @@ func TestLen(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		var i IntSet
-		for _, w := range test.adds {
-			i.Add(w)
-		}
-
-		if i.Len() != test.want {
-			t.Errorf("Len() = %d, want %d", i.Len(), test.want)
+		x := makeIntSet(test.words)
+		if x.Len() != test.want {
+			t.Errorf("Len() = %d, want %d", x.Len(), test.want)
 		}
 	}
 }
 
 func TestRemove(t *testing.T) {
 	var tests = []struct {
-		adds    []int
+		words   []int
 		removes []int
 		want    string
 	}{
@@ -42,10 +38,7 @@ func TestRemove(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		var x IntSet
-		for _, w := range test.adds {
-			x.Add(w)
-		}
+		x := makeIntSet(test.words)
 
 		for _, w := range test.removes {
 			x.Remove(w)
@@ -59,8 +52,8 @@ func TestRemove(t *testing.T) {
 
 func TestClear(t *testing.T) {
 	var tests = []struct {
-		adds []int
-		want string
+		words []int
+		want  string
 	}{
 		{[]int{}, "{}"},
 		{[]int{1}, "{}"},
@@ -69,10 +62,7 @@ func TestClear(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		var x IntSet
-		for _, w := range test.adds {
-			x.Add(w)
-		}
+		x := makeIntSet(test.words)
 
 		x.Clear()
 		if x.String() != test.want {
@@ -83,7 +73,7 @@ func TestClear(t *testing.T) {
 
 func TestCopy(t *testing.T) {
 	var tests = []struct {
-		adds []int
+		words []int
 	}{
 		{[]int{}},
 		{[]int{1}},
@@ -92,14 +82,20 @@ func TestCopy(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		var x IntSet
-		for _, w := range test.adds {
-			x.Add(w)
-		}
+		x := makeIntSet(test.words)
 
 		copy := x.Copy()
 		if x.String() != copy.String() {
 			t.Errorf("words = %s, want %s", x.String(), copy.String())
 		}
 	}
+}
+
+func makeIntSet(words []int) IntSet {
+	var s IntSet
+	for _, w := range words {
+		s.Add(w)
+	}
+
+	return s
 }
