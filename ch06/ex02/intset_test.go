@@ -18,11 +18,11 @@ func TestAddAll(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		var i IntSet
+		var x IntSet
 
-		i.AddAll(test.values...)
-		if i.String() != test.want {
-			t.Errorf("AddAll() = %s, want %s", i.String(), test.want)
+		x.AddAll(test.values...)
+		if x.String() != test.want {
+			t.Errorf("AddAll() = %s, want %s", x.String(), test.want)
 		}
 	}
 }

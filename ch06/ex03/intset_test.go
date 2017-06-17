@@ -19,12 +19,12 @@ func TestIntersectWith(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		s1 := makeIntSet(test.words1)
-		s2 := makeIntSet(test.words2)
+		x1 := makeIntSet(test.words1)
+		x2 := makeIntSet(test.words2)
 
-		s1.IntersectWith(&s2)
-		if s1.String() != test.want {
-			t.Errorf("IntersectWith() = %s, want %s", s1.String(), test.want)
+		x1.IntersectWith(&x2)
+		if x1.String() != test.want {
+			t.Errorf("IntersectWith() = %s, want %s", x1.String(), test.want)
 		}
 	}
 }
@@ -43,12 +43,12 @@ func TestDifferenceWith(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		s1 := makeIntSet(test.words1)
-		s2 := makeIntSet(test.words2)
+		x1 := makeIntSet(test.words1)
+		x2 := makeIntSet(test.words2)
 
-		s1.DifferenceWith(&s2)
-		if s1.String() != test.want {
-			t.Errorf("DifferenceWith() = %s, want %s", s1.String(), test.want)
+		x1.DifferenceWith(&x2)
+		if x1.String() != test.want {
+			t.Errorf("DifferenceWith() = %s, want %s", x1.String(), test.want)
 		}
 	}
 }
@@ -68,12 +68,12 @@ func TestSymmetricDifference(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		s1 := makeIntSet(test.words1)
-		s2 := makeIntSet(test.words2)
+		x1 := makeIntSet(test.words1)
+		x2 := makeIntSet(test.words2)
 
-		s1.SymmetricDifference(&s2)
-		if s1.String() != test.want {
-			t.Errorf("SymmetricDifference() = %s, want %s", s1.String(), test.want)
+		x1.SymmetricDifference(&x2)
+		if x1.String() != test.want {
+			t.Errorf("SymmetricDifference() = %s, want %s", x1.String(), test.want)
 		}
 	}
 }
