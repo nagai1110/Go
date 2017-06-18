@@ -1,0 +1,1 @@
+go run ./bytecounter.go
