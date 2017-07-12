@@ -15,19 +15,27 @@ func main() {
 		width, height          = 1024, 1024
 	)
 
+	done := make(chan struct{})
+
 	img := image.NewRGBA(image.Rect(0, 0, width, height))
 	for py := 0; py < height; py++ {
-		y := float64(py)/height*(ymax-ymin) + ymin
-
 		go func(py int) {
+			y := float64(py)/height*(ymax-ymin) + ymin
 			for px := 0; px < width; px++ {
 				x := float64(px)/width*(xmax-xmin) + xmin
 				z := complex(x, y)
 				// Image point (px, py) represents complex value z.
 				img.Set(px, py, mandelbrot(z))
 			}
+
+			done <- struct{}{}
 		}(py)
 	}
+
+	for py := 0; py < height; py++ {
+		<-done
+	}
+
 	png.Encode(os.Stdout, img) // NOTE: ignoring errors
 }
 
