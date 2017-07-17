@@ -1,1 +1,1 @@
-go run ./crawl.go http://golang.org
+go run ./findlinks.go -depth=3 http://golang.org
