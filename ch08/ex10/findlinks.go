@@ -65,7 +65,7 @@ func isRootDomain(urlStr string, domains []string) bool {
 	return false
 }
 
-func createLocalFile(urlStr string) {
+func createLocalFile(urlStr string, cancel <-chan struct{}) {
 	u, err := url.Parse(urlStr)
 	if err != nil {
 		fmt.Println(err)
@@ -87,13 +87,19 @@ func createLocalFile(urlStr string) {
 		return
 	}
 
-	response, err := http.Get(u.String())
+	req, err := http.NewRequest("GET", urlStr, nil)
 	if err != nil {
-		fmt.Println(err)
 		return
 	}
 
-	body, err := ioutil.ReadAll(response.Body)
+	req.Cancel = cancel
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -116,6 +122,21 @@ func main() {
 
 	worklist := make(chan []linkInfo)
 	unseenLinks := make(chan linkInfo)
+	cancel := make(chan struct{})
+
+	cancelled := func() bool {
+		select {
+		case <-cancel:
+			return true
+		default:
+			return false
+		}
+	}
+
+	go func() {
+		os.Stdin.Read(make([]byte, 1))
+		close(cancel)
+	}()
 
 	go func() {
 		worklist <- createLinkInfos(os.Args[1:], 0)
@@ -124,10 +145,12 @@ func main() {
 	for i := 0; i < 20; i++ {
 		go func() {
 			for link := range unseenLinks {
-				foundLinks := crawl(link)
-				go func() {
-					worklist <- foundLinks
-				}()
+				if !cancelled() {
+					foundLinks := crawl(link)
+					go func() {
+						worklist <- foundLinks
+					}()
+				}
 			}
 		}()
 	}
@@ -136,10 +159,12 @@ func main() {
 	seen := make(map[string]bool)
 	for list := range worklist {
 		for _, link := range list {
-			if !seen[link.url] && link.depth <= depth && isRootDomain(link.url, rootDomains) {
-				seen[link.url] = true
-				createLocalFile(link.url)
-				unseenLinks <- link
+			if !cancelled() {
+				if !seen[link.url] && link.depth <= depth && isRootDomain(link.url, rootDomains) {
+					seen[link.url] = true
+					createLocalFile(link.url, cancel)
+					unseenLinks <- link
+				}
 			}
 		}
 	}
