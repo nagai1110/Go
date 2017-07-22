@@ -1,0 +1,1 @@
+go run ./fetch.go http://golang.org https://github.com/nagai1110 https://www.yahoo.co.jp/
